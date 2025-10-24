@@ -1,0 +1,16 @@
+server:
+  port: 0
+#  port: ${PORT:9992}
+
+spring:
+
+  application:
+    name: samokat-service
+
+  profiles:
+    active: ${PROFILE:dev}
+
+  config:
+    active:
+      on-profile: dev
+    import: optional:configserver:http://localhost:9991

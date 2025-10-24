@@ -1,0 +1,33 @@
+server:
+  port: ${PORT:8765}
+spring:
+
+
+  application:
+    name: samokat-gateway
+    #  server:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: samokat-service
+          uri: lb://samokat-service
+          predicates:
+            - Path=/samokat-service/**
+
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka-server/
+        register-with-eureka: true
+        fetch-registry: true
+  profiles:
+    active: ${PROFILE:dev}
+
+  config:
+    active:
+      on-profile: dev
+    import: optional:configserver:http://localhost:9991
